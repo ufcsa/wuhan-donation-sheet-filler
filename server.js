@@ -119,12 +119,18 @@ app.post('/api/update', async (req, res) => {
 			.tz('America/New_York')
 			.format('YYYY-MM-DD HH:mm')
 	);
-	const role = [currTime, info.name, info.amount, info.method, info.role];
+	const role = [
+		currTime,
+		info.name,
+		'$' + info.amount.toString(),
+		info.method,
+		info.role
+	];
 
 	if (sheets) {
 		await sheets.spreadsheets.values.append(
 			{
-				spreadsheetId: '13QxBpX8mo-u-cwsmtDB6QgxckFTdORY0TXdemHdXdAU',
+				spreadsheetId: '1A3s9syo6cDzVcBoidLO-aG90WwjSM-hjVAFazyaX7Mc',
 				range: 'Sheet1',
 				insertDataOption: 'INSERT_ROWS',
 				valueInputOption: 'RAW',

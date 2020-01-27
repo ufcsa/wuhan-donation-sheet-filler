@@ -73,6 +73,7 @@ class L extends React.Component {
 						Name
 					</InputItem>
 					<InputItem
+						type='number'
 						{...getFieldProps('amount', {
 							rules: [{ required: true, message: 'Required!' }]
 						})}
