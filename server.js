@@ -5,6 +5,7 @@ const { google } = require('googleapis');
 const bodyParser = require('body-parser');
 const app = express();
 const moment = require('moment-timezone');
+const path = require('path');
 var port = process.env.PORT || 5000;
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
@@ -106,6 +107,14 @@ function insertRow(auth) {
 	// );
 }
 app.use(bodyParser.json());
+app.use('/', express.static(path.resolve('build')));
+app.use((req, res, next) => {
+	if (req.url.startsWith('/api/')) {
+		return next();
+	}
+	return res.sendFile(path.resolve('build/index.html'));
+});
+
 app.post('/api/update', async (req, res) => {
 	const info = req.body;
 	const currTime = moment(new Date())
